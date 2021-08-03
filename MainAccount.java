@@ -14,15 +14,20 @@ public abstract class MainAccount {
 		return userInfo;
 	}
 	
-	public void depositMoney(int amountOfMoney) { // need to implement
-		
+	// method for depositing money, calling newBalance method for updated balance
+	public void depositMoney(int amountOfMoney) { 
+		newBalance(getAccountBalance()+amountOfMoney);
 	}
 	
-	public boolean withdrawMoney(int amountOfMoney) { // need to implement
+	// method for withdrawing money, calling newBalance method for updated balance
+	public boolean withdrawMoney(int amountOfMoney) { 
 		if(withdrawable(amountOfMoney)) {
-	}
+			newBalance(getAccountBalance()-amountOfMoney);
+			return true;
+	}else {
 		return false; 
 }
+	}
 
 	private boolean withdrawable(int amountOfMoney) {
 		return userInfo.getAccountBalance()>=amountOfMoney;
