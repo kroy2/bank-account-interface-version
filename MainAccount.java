@@ -30,7 +30,7 @@ public abstract class MainAccount {
 	}
 
 	private boolean withdrawable(int amountOfMoney) {
-		return userInfo.getAccountBalance()>=amountOfMoney;
+		return getAccountBalance()>=amountOfMoney;
 	}
 	public int getAccountBalance() {
 		return userInfo.getAccountBalance();				
