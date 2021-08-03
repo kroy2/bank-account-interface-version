@@ -14,7 +14,7 @@ public abstract class MainAccount {
 		return userInfo;
 	}
 	
-	public void depositMoney(int amountOfMoney) {
+	public void depositMoney(int amountOfMoney) { // need to implement
 		
 	}
 	
