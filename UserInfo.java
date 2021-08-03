@@ -26,8 +26,10 @@ public class UserInfo {
 	public int getPassword() {
 		return password;
 	}
-	public int accountBalance() {
+	public int getAccountBalance() {
 		return accountBalance;
 	}
+	public String toString() {
+		return "Name: " + name + '\n' + "Username: " + username + '\n' + "Password: " + password + '\n' + "Account Balance: " + accountBalance;
+	}
 }
-
