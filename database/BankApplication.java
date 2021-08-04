@@ -5,27 +5,31 @@ import database.BankTransactions;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class Application {
+public class BankApplication {
 	private final BankTransactions bankSystem;
 	private UserInfo userInfo = null;
 
-	public Application(BankTransactions bankSystem) {
+	public BankApplication(BankTransactions bankSystem) {
 		this.bankSystem = bankSystem;
 	}
+	
+	private Consumer<UserInfo> updatedInfo = info ->{
+		userInfo = info;
+	};
 
 	public void enterName(String name) {
-		Test(()->bankSystem.searchBankAccountByName(name), info -> userInfo = info);
+		Test(()->bankSystem.searchBankAccountByName(name), updatedInfo);
 	}
 	
 	public void depositMoney(int amountOfMoney) {
 		if(userInfo!=null) { // first check if user info is present
-			Test(()->bankSystem.depositMoney(userInfo, amountOfMoney), info->userInfo=info);
+			Test(()->bankSystem.depositMoney(userInfo, amountOfMoney), updatedInfo);
 		}
 	}
 	
 	public void withdrawMoney(int amountOfMoney) {
 		if(userInfo!=null) { // first check if user info is present
-			
+			Test(()->bankSystem.depositMoney(userInfo, amountOfMoney), updatedInfo);
 		}
 	}
 	
@@ -34,6 +38,10 @@ public class Application {
 			userInfo = null; // reset to null upon exit
 		}
 		
+	}
+	
+	public String toString() {
+		return userInfo != null? userInfo.toString() : "There is no data";
 	}
 	
 	private <obj>void Test(Supplier<ApplicationOutput<obj>> action, Consumer<obj> afterAction) { // Test method that tests called methods and passes or fails based on conditions met
