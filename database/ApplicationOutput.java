@@ -1,4 +1,4 @@
-package database;
+package application;
 
 public class ApplicationOutput<obj> { // creation of generic object variable obj to be implemented in following code
 
@@ -29,7 +29,7 @@ public class ApplicationOutput<obj> { // creation of generic object variable obj
 		return new ApplicationOutput<altObj>(info);
 	}
 	// factory method that fails
-	// if successFulInfo does not assume a succesful operation given that there is an absence of/inadequate info, then error message is presented
+	// if successFulInfo does not assume a successful operation given that there is an absence of/inadequate info, then error message is presented
 	public static <altObj>ApplicationOutput<altObj> fail(String error){
 		return new ApplicationOutput<altObj>(error);
 	}
