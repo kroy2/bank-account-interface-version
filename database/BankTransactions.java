@@ -3,25 +3,31 @@ package database;
 import java.util.HashMap;
 import java.util.Map;
 
+import application.ApplicationOutput;
+
 public class BankTransactions {
 	private Map<Integer, MainAccount> bankAccounts =  new HashMap<>(); // map used to map stored list of accounts Integer and MainAccount
 	
-	public ApplicationOutput<UserInfo> searchBankAccountByName(String name){ // method that allows user to search bank account by associated name
-		MainAccount mainAccount = bankAccounts.get(name);
+	public BankTransactions() { // example 
+		bankAccounts.put(1, new Chequing(new UserInfo(1, "k.roy", "Os21h334!", 200)));
+	}
+	
+	public ApplicationOutput<UserInfo> searchBankAccountByBankNumber(int bankNumber){ // method that allows user to search bank account by associated name
+		MainAccount mainAccount = bankAccounts.get(bankNumber);
 		
 		if (mainAccount!=null) {
 			return ApplicationOutput.success(mainAccount.getUserInfo()); // success functionality called from ApplicationOutput class if conditions are met
 		}else {
-			return ApplicationOutput.fail("There is no account with this name associated with it: " + name); // fail/error message called in from ApplicationOutput class if conditions are not met
+			return ApplicationOutput.fail("There is no account with this id: " + bankNumber); // fail/error message called in from ApplicationOutput class if conditions are not met
 		}
 	}
 	public ApplicationOutput<UserInfo> depositMoney(UserInfo userInfo, int amountOfMoney){
-		MainAccount mainAccount = bankAccounts.get(userInfo.getName());
+		MainAccount mainAccount = bankAccounts.get(userInfo.getBankNumber());
 		mainAccount.depositMoney(amountOfMoney); // this operation will occur since it is calling the depositMoney method from MainAccount
 		return ApplicationOutput.success(mainAccount.getUserInfo()); // returning new account data since account data is updated after deposit		
 	}
 	public ApplicationOutput<UserInfo> withdrawMoney(UserInfo userInfo, int amountOfMoney){
-		MainAccount mainAccount = bankAccounts.get(userInfo.getName());
+		MainAccount mainAccount = bankAccounts.get(userInfo.getBankNumber());
 		boolean canDeposit = mainAccount.withdrawMoney(amountOfMoney);
 		
 		if (canDeposit) {
