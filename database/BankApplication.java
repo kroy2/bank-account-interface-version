@@ -1,47 +1,62 @@
 package application;
+
+import database.UserInfo;
 import database.BankTransactions;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.Parent;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
-public class ApplicationInterface extends Application {
+public class BankApplication {
+	private final BankTransactions bankSystem;
+	private UserInfo userInfo = null;
+
+	public BankApplication(BankTransactions bankSystem) {
+		this.bankSystem = bankSystem;
+	}
 	
-	private TextField spaceForText = new TextField();
-	private BankApplication BankApplication = new BankApplication(new BankTransactions());
+	private Consumer<UserInfo> updatedInfo = info ->{
+		userInfo = info;
+	};
+
+	public void enterInfo(int bankNumber) {
+		Test(()->bankSystem.searchBankAccountByBankNumber(bankNumber), updatedInfo);
+	}
 	
-	private Parent interfaceElements() {
-		VBox verticalBox = new VBox();
-		verticalBox.setPrefSize(400, 400);
-		
-		TextArea text = new TextArea();
-		
-		Button buttonEnter = new Button("Enter");
-		buttonEnter.setOnAction(e->{int bankNumber = Integer.parseInt(spaceForText.getText()); BankApplication.enterInfo(bankNumber); text.setText(BankApplication.toString());});
-		
-		Button buttonDepositAmount = new Button("Deposit Amount");
-		buttonDepositAmount.setOnAction(e->{int amountOfMoney = Integer.parseInt(spaceForText.getText()); BankApplication.depositMoney(amountOfMoney); text.setText(BankApplication.toString());});
-		
-		Button buttonWithdrawAmount = new Button("Withdraw Amount");
-		buttonWithdrawAmount.setOnAction(e->{int amountOfMoney = Integer.parseInt(spaceForText.getText()); BankApplication.withdrawMoney(amountOfMoney); text.setText(BankApplication.toString());});
-		
-		Button buttonExit = new Button("Exit");
-		buttonExit.setOnAction(e->{BankApplication.exitProgram();text.setText(BankApplication.toString());});
-		
-
-		verticalBox.getChildren().addAll(spaceForText, buttonEnter, buttonDepositAmount, buttonWithdrawAmount, buttonExit);
-		return verticalBox;
+	public void depositMoney(int amountOfMoney) {
+		if(userInfo!=null) { // first check if user info is present
+			Test(()->bankSystem.depositMoney(userInfo, amountOfMoney), updatedInfo);
+		}
 	}
-
-	public void start(Stage interfaceStage) throws Exception{
-		interfaceStage.setScene(new Scene(interfaceElements()));
-		interfaceStage.show();
+	
+	public void withdrawMoney(int amountOfMoney) {
+		if(userInfo!=null) { // first check if user info is present
+			Test(()->bankSystem.depositMoney(userInfo, amountOfMoney), updatedInfo);
+		}
 	}
-	public static void main (String[]args) {
-		launch(args);
+	
+	public void exitProgram() {
+		if (userInfo!=null) { // first check if user info is present
+			userInfo = null; // reset to null upon exit
+		}
+		
 	}
-}
+	
+	public String toString() {
+		return userInfo != null? userInfo.toString() : "There is no data";
+	}
+	
+	private <obj>void Test(Supplier<ApplicationOutput<obj>> action, Consumer<obj> afterAction) { // Test method that tests called methods and passes or fails based on conditions met
+		try {
+			ApplicationOutput<obj> output = action.get();
+			if(output.successfulInfo()) {
+				obj info = output.getInfo();
+				afterAction.accept(info);
+				
+			}else {	
+				String error = output.getError();
+				throw new RuntimeException(error);
+			}}
+			catch (Exception e) {
+				System.out.println("There is an error: " + e.getMessage()); // printing error in command line if conditions are not met
+			}
+		}
+	}
