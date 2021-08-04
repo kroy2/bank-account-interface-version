@@ -29,13 +29,13 @@ public abstract class MainAccount {
 }
 	}
 
-	private boolean withdrawable(int amountOfMoney) {
+	protected boolean withdrawable(int amountOfMoney) { // protected so it can be overrided
 		return getAccountBalance()>=amountOfMoney;
 	}
 	public int getAccountBalance() {
 		return userInfo.getAccountBalance();				
 	}
 	private void newBalance(int updatedAccountBalance) {
-		userInfo = new UserInfo(userInfo.getName(), userInfo.getUsername(), userInfo.getPassword(), updatedAccountBalance);
+		userInfo = new UserInfo(userInfo.getBankNumber(), userInfo.getUsername(), userInfo.getPassword(), updatedAccountBalance);
 	}
 }
