@@ -6,4 +6,3 @@ public class Chequing extends MainAccount{
 		super(userInfo);
 	}
 }
-
