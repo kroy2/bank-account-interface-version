@@ -1,4 +1,5 @@
 package Controllers;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class UserInfoViewTester extends Application {
 			Parent userInfoView = (Parent) loader.load(new FileInputStream("src/Views/UserInfoView.fxml"));
 			UserInfoViewController userInfoViewController = loader.getController();
 			userInfoViewController.linkWithApplication(this);
-			scene = new Scene(userInfoView, 425, 300);
+			scene = new Scene(userInfoView, 425, 400);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (FileNotFoundException e) {
