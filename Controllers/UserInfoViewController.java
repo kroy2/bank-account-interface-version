@@ -1,10 +1,12 @@
 package Controllers;
 
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class UserInfoViewController {
 
@@ -21,7 +23,7 @@ public class UserInfoViewController {
     private TextField PasswordInput;
 
     @FXML
-    private Button SubmitButton;
+    private Button EnterButton;
 
     @FXML
     void ResetButtonClicked(ActionEvent event) {
@@ -31,12 +33,13 @@ public class UserInfoViewController {
     }
 
     @FXML
-    void SubmitButtonClicked(ActionEvent event) {
+    void EnterButtonClicked(ActionEvent event) {
 
     }
 
 	public void linkWithApplication(UserInfoViewTester userInfoViewTester) {
 		
 	}
+
 
 }
