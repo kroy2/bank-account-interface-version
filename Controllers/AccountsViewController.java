@@ -158,7 +158,7 @@ public class AccountsViewController {
 		// Prints current balance in savings
 		setBalanceSavings(balanceSavings);
 		// Removes user previous input
-		DepositMoneyInputSavings.clear();
+		WithdrawMoneyInputSavings.clear();
 	}
 
 	/**
