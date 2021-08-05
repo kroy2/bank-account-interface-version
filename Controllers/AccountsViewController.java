@@ -107,7 +107,9 @@ public class AccountsViewController {
 		WithdrawMoneyInputChequing.clear();
 	}
 
-	
+	/**
+	 * Goes back to User Info Screen
+	 */
 	@FXML
 	void LogOut(ActionEvent event) throws FileNotFoundException, IOException {
 		FXMLLoader loader = new FXMLLoader();
@@ -168,18 +170,20 @@ public class AccountsViewController {
 
 	/**
 	 * Method that updates balance label every time a transaction is made
-	 * used for Chequing
+	 * used for Chequing. Always rounds to 2 decimal places.
 	 */
 	public void setBalanceChequing(double amount) {
-		ChequingAccountBalanceLabel.setText(amount + "");
+		// Rounds to 2 decimal places
+		ChequingAccountBalanceLabel.setText(String.format("%.2f", amount));
 	}
 
 	/**
-	 * Method that updates balance label every time a transaction is made
-	 * used for Savings
+	 * Method that updates balance label every time a transaction is made used for
+	 * Savings. Always rounds to 2 decimal places
 	 */
 	public void setBalanceSavings(double amount) {
-		SavingsAccountBalanceLabel1.setText(amount + "");
+		// Rounds to 2 decimal places
+		SavingsAccountBalanceLabel1.setText(String.format("%.2f", amount));
 	}
 
 	/**
