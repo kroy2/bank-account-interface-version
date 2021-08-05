@@ -8,7 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AccountsViewController">
    <top>
-      <TabPane prefHeight="800.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="Chequing">
             <content>
@@ -48,6 +48,17 @@
                               <Font name="Times New Roman" size="70.0" />
                            </font>
                         </Text>
+                        <Button fx:id="LogOutButton" layoutX="687.0" layoutY="519.0" mnemonicParsing="false" onAction="#LogOut" text="Log Out">
+                           <font>
+                              <Font name="Times New Roman" size="21.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="UsernameLabel" layoutX="652.0" layoutY="22.0" prefHeight="22.0" prefWidth="140.0" />
+                        <Text layoutX="565.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+                           <font>
+                              <Font name="Times New Roman" size="20.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
             </content>
@@ -56,11 +67,6 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="SavingsAccountBalanceLabel" layoutX="309.0" layoutY="340.0">
-                           <font>
-                              <Font name="Times New Roman" size="80.0" />
-                           </font>
-                        </Label>
                         <Label layoutX="15.0" layoutY="14.0" text="Deposit Money: ">
                            <font>
                               <Font name="Times New Roman" size="22.0" />
@@ -95,9 +101,33 @@
                         </Label>
                         <Button fx:id="DepositButtonSavings" layoutX="26.0" layoutY="87.0" mnemonicParsing="false" onAction="#DepositButtonClickedSavings" prefHeight="27.0" prefWidth="127.0" text="Deposit" />
                         <Button fx:id="WithdrawButtonSavings" layoutX="25.0" layoutY="352.0" mnemonicParsing="false" onAction="#WithdrawButtonClickedSavings" prefHeight="27.0" prefWidth="127.0" text="Withdraw" />
+                        <Button fx:id="LogOutButton2" layoutX="687.0" layoutY="519.0" mnemonicParsing="false" onAction="#LogOut" text="Log Out">
+                           <font>
+                              <Font name="Times New Roman" size="21.0" />
+                           </font>
+                        </Button>
+                        <Text layoutX="559.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+                           <font>
+                              <Font name="Times New Roman" size="20.0" />
+                           </font>
+                        </Text>
+                        <Label fx:id="UsernameLabel2" layoutX="646.0" layoutY="19.0" prefHeight="22.0" prefWidth="140.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
+            <Tab text="TFSA">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="LogOutButton3" layoutX="687.0" layoutY="519.0" mnemonicParsing="false" onAction="#LogOut" text="Log Out">
+                           <font>
+                              <Font name="Times New Roman" size="21.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
    </top>
