@@ -1,1 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="-7.0" prefHeight="800.0" prefWidth="800.0">
+         <children>
+            <Text layoutX="288.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Low Risk TFSA" textAlignment="CENTER" wrappingWidth="224.13671875">
+               <font>
+                  <Font name="Times New Roman Bold" size="30.0" />
+               </font>
+            </Text>
+            <TextField layoutX="82.0" layoutY="193.0" prefHeight="33.0" prefWidth="149.0" />
+            <Button layoutX="82.0" layoutY="234.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Enter">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Text layoutX="82.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deposit Money:" wrappingWidth="149.0">
+               <font>
+                  <Font name="Times New Roman" size="22.0" />
+               </font>
+            </Text>
+            <Text layoutX="61.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$">
+               <font>
+                  <Font name="Times New Roman" size="22.0" />
+               </font>
+            </Text>
+            <Text layoutX="167.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have chosen a Low Risk TFSA portfolio" textAlignment="CENTER" wrappingWidth="465.13671875">
+               <font>
+                  <Font name="Times New Roman" size="18.0" />
+               </font>
+            </Text>
+         </children></Pane>
+   </children>
+</AnchorPane>
 
