@@ -49,7 +49,7 @@ public class UserInfoViewController {
 		// Store UsernameInput and PasswordInput with corresponding varaibles
 
 		FXMLLoader loader = new FXMLLoader();
-		// Access other fxml file to set new scene
+		// Access AccountView fxml file to set new scene
 		Parent AccountViewParent = (Parent) loader.load(new FileInputStream("src/Views/AccountsView.fxml"));
 
 		// Sets scene
