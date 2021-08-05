@@ -20,14 +20,13 @@
                   <Font name="Times New Roman" size="18.0" />
                </font>
             </Text>
-            <Button layoutX="139.0" layoutY="190.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="\$1000.00">
+            <Button fx:id="ThousandButton" layoutX="139.0" layoutY="190.0" mnemonicParsing="false" onAction="#ThousandButtonClicked" prefHeight="25.0" prefWidth="89.0" text="\$1000.00">
                <font>
                   <Font name="Times New Roman" size="12.0" />
                </font></Button>
-            <Button layoutX="316.0" layoutY="190.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="\$2000.00" />
-            <Button layoutX="493.0" layoutY="190.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="\$3000.00" />
+            <Button fx:id="TwoThousandButton" layoutX="316.0" layoutY="190.0" mnemonicParsing="false" onAction="#TwoThousandButtonClicked" prefHeight="25.0" prefWidth="89.0" text="\$2000.00" />
+            <Button fx:id="ThreeThousandButton" layoutX="493.0" layoutY="190.0" mnemonicParsing="false" onAction="#ThreeThousandButtonClicked" prefHeight="25.0" prefWidth="89.0" text="\$3000.00" />
          </children>
       </Pane>
    </children>
 </AnchorPane>
-
