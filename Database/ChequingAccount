@@ -1,7 +1,0 @@
-package Database;
-
-public abstract class ChequingAccount extends Accounts {
-	public ChequingAccount(int accounts) {
-		super(accounts);
-	}
-}
