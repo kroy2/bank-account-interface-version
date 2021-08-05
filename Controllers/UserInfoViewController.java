@@ -43,6 +43,8 @@ public class UserInfoViewController {
 	/**
 	 * Saves user input for username and password Changes Scene to access accounts
 	 * with different functionalities
+	 * Does some error handling:
+	 * Same Username & Password, did not fill in response
 	 */
 	@FXML
 	void EnterButtonClicked(ActionEvent event) throws IOException {
