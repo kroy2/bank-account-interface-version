@@ -1,7 +1,7 @@
 package Database;
 
-public class ChequingAccount extends Accounts {
-	public ChequingAccount(AccountBalance accountBalance) {
-		super(accountBalance);
+public abstract class ChequingAccount extends Accounts {
+	public ChequingAccount(int accounts) {
+		super(accounts);
 	}
 }
