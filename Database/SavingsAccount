@@ -1,0 +1,11 @@
+package Database;
+
+public class SavingsAccount extends Accounts {
+	
+	public SavingsAccount(AccountBalance accountBalance) {
+		super(accountBalance);
+	}
+	protected boolean withdrawable(int amount) {
+		return getAccountBalance()>=amount;
+	}
+}
