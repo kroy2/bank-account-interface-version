@@ -26,7 +26,7 @@ public class AccountsViewTester extends Application {
 			Parent AccountsView = (Parent) loader.load(new FileInputStream("src/Views/AccountsView.fxml"));
 			AccountsViewController accountsViewController = loader.getController();
 			accountsViewController.linkWithApplication(this);
-			scene = new Scene(AccountsView, 800, 800);
+			scene = new Scene(AccountsView, 800, 600);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (FileNotFoundException e) {
