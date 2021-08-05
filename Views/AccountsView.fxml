@@ -14,7 +14,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="400.0">
                      <children>
-                        <Label fx:id="ChequingAccountBalanceLabel" layoutX="272.0" layoutY="325.0" prefHeight="91.0" prefWidth="256.0">
+                        <Label fx:id="ChequingAccountBalanceLabel" layoutX="272.0" layoutY="246.0" prefHeight="91.0" prefWidth="256.0">
                            <font>
                               <Font name="Times New Roman" size="80.0" />
                            </font>
@@ -43,7 +43,7 @@
                         <TextField fx:id="WithdrawMoneyInputChequing" layoutX="40.0" layoutY="369.0" prefHeight="25.0" prefWidth="125.0" />
                         <Button fx:id="DepositButtonChequing" layoutX="29.0" layoutY="101.0" mnemonicParsing="false" onAction="#DepositButtonClickedChequing" prefHeight="27.0" prefWidth="127.0" text="Deposit" />
                         <Button fx:id="WithdrawButtonChequing" layoutX="39.0" layoutY="410.0" mnemonicParsing="false" onAction="#WithdrawButtonClickedChequing" prefHeight="27.0" prefWidth="127.0" text="Withdraw" />
-                        <Text layoutX="232.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="34.0">
+                        <Text layoutX="232.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="34.0">
                            <font>
                               <Font name="Times New Roman" size="70.0" />
                            </font>
@@ -83,7 +83,7 @@
                               <Font name="Times New Roman" size="22.0" />
                            </font>
                         </Text>
-                        <Text layoutX="222.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="34.0">
+                        <Text layoutX="221.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="34.0">
                            <font>
                               <Font name="Times New Roman" size="70.0" />
                            </font>
@@ -94,7 +94,7 @@
                               <Font name="Times New Roman" size="20.0" />
                            </font>
                         </Text>
-                        <Label fx:id="SavingsAccountBalanceLabel1" layoutX="281.0" layoutY="281.0" prefHeight="91.0" prefWidth="256.0">
+                        <Label fx:id="SavingsAccountBalanceLabel1" layoutX="265.0" layoutY="210.0" prefHeight="91.0" prefWidth="256.0">
                            <font>
                               <Font name="Times New Roman" size="80.0" />
                            </font>
