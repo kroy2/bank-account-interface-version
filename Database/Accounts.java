@@ -1,14 +1,14 @@
 package Database;
 
-public abstract class Accounts {
+public class Accounts {
 
-	private final int balance;
+	private final double balance;
 
-	Accounts(int balance) {
+	public Accounts(double balance) {
 		this.balance = balance;
 	}
 
-	public int getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 
@@ -16,7 +16,8 @@ public abstract class Accounts {
 		newBalance(getBalance() + amount);
 	}
 
-	protected abstract void newBalance(int i);
+	protected void newBalance(double d) {
+	}
 
 	public void withdrawMoney(int amount) {
 		newBalance(getBalance() - amount);
