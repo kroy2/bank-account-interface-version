@@ -1,25 +1,28 @@
 package Database;
 
-public class Accounts {
+public abstract class Accounts {
 
-	private final double balance;
+// assigned balance variable that cannot be altered upon creation to be called into getter method
+	private final int balance;
 
-	public Accounts(double balance) {
+	Accounts(int balance) {
 		this.balance = balance;
 	}
 
-	public double getBalance() {
+// getter method set for balance to be called in for updated balance/new balance in deposit and withdraw methods
+	public int getBalance() {
 		return balance;
 	}
-
+// method for depositing money assigning newBalance to operation 
 	public void depositMoney(int amount) {
 		newBalance(getBalance() + amount);
 	}
-
-	protected void newBalance(double d) {
-	}
-
+// newBalance abstract method set for updated balance in depositing and withdrawing
+	protected abstract void newBalance(int i);
+// method for withdrawing money assigning newBalance to operation
 	public void withdrawMoney(int amount) {
 		newBalance(getBalance() - amount);
+		 {			
+		}
 	}
 }
