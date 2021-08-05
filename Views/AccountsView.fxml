@@ -124,6 +124,36 @@
                               <Font name="Times New Roman" size="21.0" />
                            </font>
                         </Button>
+                        <Text layoutX="362.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TFSA">
+                           <font>
+                              <Font name="Times New Roman Bold" size="30.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="178.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to our Tax Free Savings Account Portfolio selection. In this tab, you will be able to select either a low risk or a high risk portfolio." textAlignment="CENTER" wrappingWidth="445.0">
+                           <font>
+                              <Font name="Times New Roman" size="18.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="LowRiskButton" layoutX="136.0" layoutY="269.0" mnemonicParsing="false" onAction="#LowRiskButtonClicked" prefHeight="34.0" prefWidth="84.0" text="Low Risk">
+                           <font>
+                              <Font name="Times New Roman" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="HighRiskButton" layoutX="580.0" layoutY="269.0" mnemonicParsing="false" onAction="#HighRiskButtonClicked" prefHeight="34.0" prefWidth="86.0" text="High Risk">
+                           <font>
+                              <Font name="Times New Roman" size="14.0" />
+                           </font>
+                        </Button>
+                        <Text layoutX="14.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A Low Risk portfolio will utilize 2.5%-10% of your TFSA balance for investments" textAlignment="CENTER" wrappingWidth="371.619140625">
+                           <font>
+                              <Font name="Times New Roman Italic" size="16.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="408.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A High Risk portfolio will utilize 12.5%-25% of your TFSA balance for investments" textAlignment="CENTER" wrappingWidth="391.619140625">
+                           <font>
+                              <Font name="Times New Roman Italic" size="16.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
               </content>
