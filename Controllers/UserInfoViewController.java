@@ -1,5 +1,6 @@
 package Controllers;
 
+import Database.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -21,7 +22,7 @@ public class UserInfoViewController {
 	private TextField UsernameInput;
 
 	@FXML
-	private Label ResetTextOutput;
+	private Label ActionTextOutput;
 
 	@FXML
 	private Button ResetButton;
@@ -36,7 +37,7 @@ public class UserInfoViewController {
 	void ResetButtonClicked(ActionEvent event) {
 		UsernameInput.clear();
 		PasswordInput.clear();
-		ResetTextOutput.setText("Your information has been Reset, please enter information.");
+		ActionTextOutput.setText("Your information has been Reset, please enter information.");
 	}
 
 	/**
@@ -45,30 +46,50 @@ public class UserInfoViewController {
 	 */
 	@FXML
 	void EnterButtonClicked(ActionEvent event) throws IOException {
-		// Kanishkas Work
-		// Store UsernameInput and PasswordInput with corresponding varaibles
 
-		FXMLLoader loader = new FXMLLoader();
-		// Access AccountView fxml file to set new scene
-		Parent AccountViewParent = (Parent) loader.load(new FileInputStream("src/Views/AccountsView.fxml"));
+		// Check whether Username and password are the same
+		// If so, Prompts the user to try again
+		if (UsernameInput.getText().equals(PasswordInput.getText()) && UsernameInput.getLength() > 0
+				&& PasswordInput.getLength() > 0) {
+			ActionTextOutput.setText("Your Username and Password are the same. Please make them different!");
+		}
 
-		// Sets scene
-		Scene AccountViewScene = new Scene(AccountViewParent);
+		// Checks if one of the boxes is empty, if so, prompts the user to fill in
+		// remaining box
+		else if (UsernameInput.getLength() == 0 || PasswordInput.getLength() == 0) {
+			ActionTextOutput.setText("Either your Username or Password are empty. Please fill it out.");
+		} else {
+			// Kanishkas Work
+			// Store UsernameInput and PasswordInput with corresponding varaibles
+			// For Example: Username = Integer.parseInt(Username.getText())
 
-		// This line gets the stage information
-		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			FXMLLoader loader = new FXMLLoader();
+			// Access AccountView fxml file to set new scene
+			Parent AccountViewParent = (Parent) loader.load(new FileInputStream("src/Views/AccountsView.fxml"));
 
-		// Sets scene and shows upon button press
-		window.setScene(AccountViewScene);
-		window.show();
+			// Sets scene
+			Scene AccountViewScene = new Scene(AccountViewParent);
+
+			// This line gets the stage information
+			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+			// Sets scene and shows upon button press
+			window.setScene(AccountViewScene);
+			window.show();
+		}
 	}
 
 	/**
 	 * links with tester so it can be run independently
-	 * 
 	 */
 	public void linkWithApplication(UserInfoViewTester userInfoViewTester) {
 
 	}
 
+	/**
+	 * Links with main application named BankingApplication
+	 */
+	public void linkWithApplication(BankingApplication bankingApplication) {
+
+	}
 }
