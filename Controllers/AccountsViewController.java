@@ -17,7 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class AccountsViewController {
+public class AccountsViewController extends UserInfoViewController {
 	double balanceChequing = 0;
 	double balanceSavings = 0;
 	Accounts Chequing = new Accounts(balanceChequing);
@@ -27,8 +27,8 @@ public class AccountsViewController {
 	private TextField WithdrawMoneyInputChequing;
 
 	@FXML
-	private Label UsernameLabel2;
-
+	public Label UsernameLabel2;
+	
 	@FXML
 	private Label SavingsAccountBalanceLabel1;
 
@@ -39,7 +39,7 @@ public class AccountsViewController {
 	private Button DepositButtonChequing;
 
 	@FXML
-	private Label UsernameLabel;
+	public Label UsernameLabel;
 
 	@FXML
 	private Label ChequingAccountBalanceLabel;
@@ -73,6 +73,7 @@ public class AccountsViewController {
 	
 	@FXML
 	private Button LowRiskButton;
+
 	
 	/**
 	 * Access Accounts Class from Database package and 
@@ -153,8 +154,9 @@ public class AccountsViewController {
 	 */
 	@FXML
 	void WithdrawButtonClickedSavings(ActionEvent event) {
-		// Deposit method invoked from Accounts class
-		balanceSavings = balanceSavings - Double.parseDouble(WithdrawMoneyInputSavings.getText());
+		// Withdraw method invoked from Accounts class
+		// Every time withdraw is called, add 5% interest, then withdraw
+		balanceSavings = balanceSavings*1.05 - Double.parseDouble(WithdrawMoneyInputSavings.getText());
 		// Prints current balance in savings
 		setBalanceSavings(balanceSavings);
 		// Removes user previous input
@@ -198,7 +200,21 @@ public class AccountsViewController {
 	 * Changes Screen to High Risk page
 	 */
 	@FXML
-	void HighRiskButtonClicked(ActionEvent event) {
+	void HighRiskButtonClicked(ActionEvent event) throws FileNotFoundException, IOException {
+		FXMLLoader loader = new FXMLLoader();
+		// Access AccountView fxml file to set new scene
+		Parent HighRiskViewParent = (Parent) loader.load(new FileInputStream("src/Views/HighRiskView.fxml"));
+
+		// Sets scene
+		Scene HighRiskViewScene = new Scene(HighRiskViewParent);
+
+		// This line gets the stage information
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+		// Sets scene and shows upon button press
+		window.setScene(HighRiskViewScene);
+		window.show();
+		
 		
 	}
 	
