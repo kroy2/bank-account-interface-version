@@ -40,7 +40,10 @@ public class AccountsViewController extends UserInfoViewController {
 
 	@FXML
 	public Label UsernameLabel;
-
+	
+	@FXML
+	public Label SavingsOutput;
+	
 	@FXML
 	private Label ChequingAccountBalanceLabel;
 
@@ -161,6 +164,8 @@ public class AccountsViewController extends UserInfoViewController {
 		setBalanceSavings(balanceSavings);
 		// Removes user previous input
 		WithdrawMoneyInputSavings.clear();
+		// Displays that Interest was applied
+		SavingsOutput.setText("5% interest was applied to the balance before withdrawing.");
 	}
 
 	/**
