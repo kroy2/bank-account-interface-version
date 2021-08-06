@@ -69,13 +69,9 @@ public class HighRiskViewController {
 		MiddleInvestmentOptionButton.setDisable(false);
 		HighInvestmentOptionButton.setDisable(false);
 		
-		// Adds text to buttons which represent amount invested
-		// Includes rounding to 2 decimal places
-		LowestInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.12));
-		MiddleInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.18));
-		HighInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.24));
-		
-		
+		// Resets Text in other buttons
+		// while accounting for 2 decimal places
+		setTextInvestmentOptionButton();
 	}
 
 	/**
@@ -94,11 +90,9 @@ public class HighRiskViewController {
 		// Actually changes the balance
 		balanceHighRisk = balanceHighRisk - balanceHighRisk*0.12;
 		
-		// Appropriately changes buttons text to represent new balance values
-		// including rounding to 2 decimal places
-		LowestInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.12));
-		MiddleInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.18));
-		HighInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.24));
+		// Resets Text in other buttons
+		// while accounting for 2 decimal places
+		setTextInvestmentOptionButton();
 	}
 	
 	/**
@@ -117,11 +111,9 @@ public class HighRiskViewController {
 		// Actually changes the balance
 		balanceHighRisk = balanceHighRisk - balanceHighRisk*0.18;
 		
-		// Appropriately changes buttons text to represent new balance values
-		// including rounding to 2 decimal places
-		LowestInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.12));
-		MiddleInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.18));
-		HighInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.24));
+		// Resets Text in other buttons
+		// while accounting for 2 decimal places
+		setTextInvestmentOptionButton();
 	}
 	
 	/**
@@ -140,11 +132,9 @@ public class HighRiskViewController {
 		// Actually changes the balance
 		balanceHighRisk = balanceHighRisk - balanceHighRisk*0.24;
 		
-		//Appropriately changes buttons text to represent new balance values
-		// including rounding to 2 decimal places
-		LowestInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.12));
-		MiddleInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.18));
-		HighInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.24));
+		// Resets Text in other buttons
+		// while accounting for 2 decimal places
+		setTextInvestmentOptionButton();
 	}
 	
 	/**
@@ -182,5 +172,13 @@ public class HighRiskViewController {
 	 */
 	public void linkWithApplication(HighRiskViewTester highRiskViewTester) {
 		
+	}
+	
+	//Appropriately changes buttons text to represent new balance values
+	// including rounding to 2 decimal places
+	public void setTextInvestmentOptionButton() {
+		LowestInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.12));
+		MiddleInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.18));
+		HighInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.24));
 	}
 }
