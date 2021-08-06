@@ -53,7 +53,7 @@
                               <Font name="Times New Roman" size="21.0" />
                            </font>
                         </Button>
-                        <Label fx:id="UsernameLabel" layoutX="652.0" layoutY="22.0" prefHeight="22.0" prefWidth="140.0" />
+                        <Label fx:id="UsernameLabel" layoutX="652.0" layoutY="22.0" prefHeight="22.0" prefWidth="140.0" text=" " />
                         <Text layoutX="565.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
                            <font>
                               <Font name="Times New Roman" size="20.0" />
@@ -149,7 +149,7 @@
                               <Font name="Times New Roman Italic" size="16.0" />
                            </font>
                         </Text>
-                        <Text layoutX="408.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A High Risk portfolio will utilize 12.5%-25% of your TFSA balance for investments" textAlignment="CENTER" wrappingWidth="391.619140625">
+                        <Text layoutX="408.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A High Risk portfolio will utilize 12%-24% of your TFSA balance for investments" textAlignment="CENTER" wrappingWidth="391.619140625">
                            <font>
                               <Font name="Times New Roman Italic" size="16.0" />
                            </font>
