@@ -60,6 +60,9 @@ public class UserInfoViewController {
 		// remaining box
 		else if (UsernameInput.getLength() == 0 || PasswordInput.getLength() == 0) {
 			ActionTextOutput.setText("Either your Username or Password are empty. Please fill it out.");
+			// Clears text fields
+			PasswordInput.clear();
+			UsernameInput.clear();
 		} else {
 			FXMLLoader loader = new FXMLLoader();
 			// Access AccountView fxml file to set new scene
