@@ -70,9 +70,10 @@ public class HighRiskViewController {
 		HighInvestmentOptionButton.setDisable(false);
 		
 		// Adds text to buttons which represent amount invested
-		LowestInvestmentOptionButton.setText("$" + balanceHighRisk*0.12);
-		MiddleInvestmentOptionButton.setText("$" + balanceHighRisk*0.18);
-		HighInvestmentOptionButton.setText("$" + balanceHighRisk*0.24);
+		// Includes rounding to 2 decimal places
+		LowestInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.12));
+		MiddleInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.18));
+		HighInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.24));
 		
 		
 	}
