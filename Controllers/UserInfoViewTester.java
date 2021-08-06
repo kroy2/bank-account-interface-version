@@ -17,7 +17,6 @@ public class UserInfoViewTester extends Application {
 
 	/**
 	 * Creates scene and stage by linking with UserInfoViewController
-	 * 
 	 */
 	private void userInfoView() {
 		FXMLLoader loader = new FXMLLoader();
