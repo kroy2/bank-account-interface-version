@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class UserInfoViewController {
 
 	@FXML
-	private TextField UsernameInput;
+	public TextField UsernameInput;
 
 	@FXML
 	private Label ActionTextOutput;
@@ -28,7 +28,7 @@ public class UserInfoViewController {
 	private Button ResetButton;
 
 	@FXML
-	private TextField PasswordInput;
+	public TextField PasswordInput;
 
 	@FXML
 	private Button EnterButton;
@@ -61,10 +61,6 @@ public class UserInfoViewController {
 		else if (UsernameInput.getLength() == 0 || PasswordInput.getLength() == 0) {
 			ActionTextOutput.setText("Either your Username or Password are empty. Please fill it out.");
 		} else {
-			// Kanishkas Work
-			// Store UsernameInput and PasswordInput with corresponding varaibles
-			// For Example: Username = Integer.parseInt(Username.getText())
-
 			FXMLLoader loader = new FXMLLoader();
 			// Access AccountView fxml file to set new scene
 			Parent AccountViewParent = (Parent) loader.load(new FileInputStream("src/Views/AccountsView.fxml"));
@@ -94,4 +90,6 @@ public class UserInfoViewController {
 	public void linkWithApplication(BankingApplication bankingApplication) {
 
 	}
+
+	
 }
