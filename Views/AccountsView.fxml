@@ -112,6 +112,11 @@
                            </font>
                         </Text>
                         <Label fx:id="UsernameLabel2" layoutX="646.0" layoutY="19.0" prefHeight="22.0" prefWidth="140.0" />
+                        <Label fx:id="SavingsOutput" layoutX="14.0" layoutY="527.0" prefHeight="23.0" prefWidth="628.0">
+                           <font>
+                              <Font name="Times New Roman Italic" size="20.0" />
+                           </font>
+                        </Label>
                      </children></AnchorPane>
             </content>
           </Tab>
