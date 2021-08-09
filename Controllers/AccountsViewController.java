@@ -197,8 +197,17 @@ public class AccountsViewController extends UserInfoViewController {
 	 * Changes Screen to Low Risk page
 	 */
 	@FXML
-	void LowRiskButtonClicked(ActionEvent event) {
+	void LowRiskButtonClicked(ActionEvent event) throws FileNotFoundException, IOException{
+		FXMLLoader loader = new FXMLLoader();
 		
+		Parent LowRiskViewParent = (Parent) loader.load(new FileInputStream("src/Views/LowRiskView.fxml")); 
+		
+		Scene LowRiskViewScene = new Scene(LowRiskViewParent);
+		
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		
+		window.setScene(LowRiskViewScene);
+		window.show();		
 	}
 	
 	/**
