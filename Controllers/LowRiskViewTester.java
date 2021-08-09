@@ -11,9 +11,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class LowRiskViewTester extends Application {
-
+	// Creates stage which will be called later
 	Stage primaryStage;
 	
+	/**
+	 * Creates scene and stage by linking with LowRiskViewController
+	 */
 	private void LowRiskView() {
 		FXMLLoader loader = new FXMLLoader();
 		Scene scene;
