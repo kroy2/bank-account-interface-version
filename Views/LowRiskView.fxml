@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HighRiskViewController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LowRiskViewController">
    <children>
       <Pane prefHeight="600.0" prefWidth="800.0">
          <children>
@@ -20,7 +20,7 @@
                   <Font name="Times New Roman" size="18.0" />
                </font>
             </Text>
-            <TextField fx:id="HighRiskDepositInput" layoutX="67.0" layoutY="183.0" onAction="#HighRiskDepositButtonClicked" prefHeight="33.0" prefWidth="149.0" />
+            <TextField fx:id="LowRiskDepositInput" layoutX="67.0" layoutY="183.0" onAction="#LowRiskDepositButtonClicked" prefHeight="33.0" prefWidth="149.0" />
             <Text layoutX="67.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deposit Money:" textAlignment="CENTER" wrappingWidth="148.5078125">
                <font>
                   <Font name="Times New Roman" size="22.0" />
