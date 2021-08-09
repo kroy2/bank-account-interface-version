@@ -199,13 +199,16 @@ public class AccountsViewController extends UserInfoViewController {
 	@FXML
 	void LowRiskButtonClicked(ActionEvent event) throws FileNotFoundException, IOException{
 		FXMLLoader loader = new FXMLLoader();
-		
+		// Access AccountView fxml file to set new scene
 		Parent LowRiskViewParent = (Parent) loader.load(new FileInputStream("src/Views/LowRiskView.fxml")); 
 		
+		// Sets scene
 		Scene LowRiskViewScene = new Scene(LowRiskViewParent);
 		
+		// This line gets the stage information
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		
+		// Sets scene and shows upon button press
 		window.setScene(LowRiskViewScene);
 		window.show();		
 	}
