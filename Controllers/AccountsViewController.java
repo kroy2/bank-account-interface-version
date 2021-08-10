@@ -28,6 +28,12 @@ public class AccountsViewController extends UserInfoViewController {
 	
 	@FXML
     private Button TrackButtonSavings;
+	
+	@FXML
+	private Label SavingsAccountTrackLabel;
+	
+	@FXML
+    private Label ChequingAccountTrackLabel;
 
 	@FXML
 	private TextField WithdrawMoneyInputChequing;
@@ -93,6 +99,8 @@ public class AccountsViewController extends UserInfoViewController {
     void TrackButtonChequingClicked(ActionEvent event) {
 
     }
+    
+    
 	
 	/**
 	 * Access Accounts Class from Database package and 
