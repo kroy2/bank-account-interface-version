@@ -59,6 +59,7 @@
                               <Font name="Times New Roman" size="20.0" />
                            </font>
                         </Text>
+                        <Button fx:id="TrackButtonChequing" layoutX="39.0" layoutY="523.0" mnemonicParsing="false" onAction="#TrackButtonChequingClicked" prefHeight="30.0" prefWidth="128.0" text="Track" />
                      </children>
                   </AnchorPane>
             </content>
@@ -117,6 +118,7 @@
                               <Font name="Times New Roman Italic" size="20.0" />
                            </font>
                         </Label>
+                        <Button fx:id="TrackButtonSavings" layoutX="26.0" layoutY="526.0" mnemonicParsing="false" onAction="#TrackButtonSavingsClicked" prefHeight="25.0" prefWidth="125.0" text="Track" />
                      </children></AnchorPane>
             </content>
           </Tab>
