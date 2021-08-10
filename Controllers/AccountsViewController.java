@@ -22,6 +22,12 @@ public class AccountsViewController extends UserInfoViewController {
 	double balanceSavings = 0;
 	Accounts Chequing = new Accounts(balanceChequing);
 	Accounts Savings = new Accounts(balanceSavings);
+	
+	@FXML
+	private Button TrackButtonChequing;
+	
+	@FXML
+    private Button TrackButtonSavings;
 
 	@FXML
 	private TextField WithdrawMoneyInputChequing;
@@ -77,6 +83,16 @@ public class AccountsViewController extends UserInfoViewController {
 	@FXML
 	private Button LowRiskButton;
 
+
+    @FXML
+    void TrackButtonSavingsClicked(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void TrackButtonChequingClicked(ActionEvent event) {
+
+    }
 	
 	/**
 	 * Access Accounts Class from Database package and 
