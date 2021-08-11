@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import Database.*;
 public class HighRiskViewController {
-	double balanceHighRisk = 0;
+	static double balanceHighRisk = 0;
 	Accounts HighRisk = new Accounts(balanceHighRisk);
 
 	@FXML
@@ -27,10 +27,10 @@ public class HighRiskViewController {
 	private TextField HighRiskDepositInput;
 
 	@FXML
-	private Button LowestInvestmentOptionButton;
+	public Button LowestInvestmentOptionButton;
 
 	@FXML
-	private Button HighInvestmentOptionButton;
+	public Button HighInvestmentOptionButton;
 
 	@FXML
 	private Button HighRiskDepositButton;
@@ -39,7 +39,7 @@ public class HighRiskViewController {
 	private Label InvestmentOptionOutput;
 
 	@FXML
-	private Button MiddleInvestmentOptionButton;
+	public Button MiddleInvestmentOptionButton;
 
 	@FXML
 	private Label HighRiskTFSABalance;
@@ -53,7 +53,6 @@ public class HighRiskViewController {
 	 * Pressing Enter on Keyboard
 	 * Re-enables investment option buttons
 	 * and adds text to them
-	 * 
 	 */
 	@FXML
 	void HighRiskDepositButtonClicked(ActionEvent event) {
@@ -72,6 +71,10 @@ public class HighRiskViewController {
 		// Resets Text in other buttons
 		// while accounting for 2 decimal places
 		setTextInvestmentOptionButton();
+		
+		// Checks if any button invests 0.00
+		// if so, disables that button
+		EmptyInvestmentCheck();
 	}
 
 	/**
@@ -93,6 +96,10 @@ public class HighRiskViewController {
 		// Resets Text in other buttons
 		// while accounting for 2 decimal places
 		setTextInvestmentOptionButton();
+		
+		// Checks if any button invests 0.00
+		// if so, disables that button
+		EmptyInvestmentCheck();
 	}
 	
 	/**
@@ -114,6 +121,10 @@ public class HighRiskViewController {
 		// Resets Text in other buttons
 		// while accounting for 2 decimal places
 		setTextInvestmentOptionButton();
+		
+		// Checks if any button invests 0.00
+		// if so, disables that button
+		EmptyInvestmentCheck();
 	}
 	
 	/**
@@ -135,27 +146,43 @@ public class HighRiskViewController {
 		// Resets Text in other buttons
 		// while accounting for 2 decimal places
 		setTextInvestmentOptionButton();
+		
+		// Checks if any button invests 0.00
+		// if so, disables that button
+		EmptyInvestmentCheck();
 	}
 	
 	/**
 	 * Goes back to accounts tabs
+	 * while retaining previous information
 	 */
 	@FXML
 	void GoBackButtonClicked(ActionEvent event) throws FileNotFoundException, IOException {
+		// creates a new loader
 		FXMLLoader loader = new FXMLLoader();
-		// Access AccountView fxml file to set new scene
-		Parent AccountViewParent = (Parent) loader.load(new FileInputStream("src/Views/AccountsView.fxml"));
-
-		// Sets scene
+		// sets the location of new loader to AccountsView
+		loader.setLocation(getClass().getResource("/Views/AccountsView.fxml"));
+		// loads loader so methods can be accessed
+		Parent AccountViewParent = loader.load();
+					
+		// sets scene 
 		Scene AccountViewScene = new Scene(AccountViewParent);
-
-		// This line gets the stage information
+					
+		// access AccountsViewController
+		AccountsViewController accounts = loader.getController();
+		
+		// sets balance to previous amounts
+		accounts.setBalanceChequing(accounts.getChequingBalance());
+		accounts.setBalanceSavings(accounts.getSavingsBalance());
+		
+		// sets username to previous name
+		accounts.setUsername(accounts.getUsername());
+					
+		// Gets the Stage information
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-		// Sets scene and shows upon button press
+		// Sets Scene and shows upon button press
 		window.setScene(AccountViewScene);
 		window.show();
-
 	}
 	/**
 	 * Sets balance of TFSA based on
@@ -180,5 +207,20 @@ public class HighRiskViewController {
 		LowestInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.12));
 		MiddleInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.18));
 		HighInvestmentOptionButton.setText("$" + String.format("%.2f",balanceHighRisk*0.24));
+	}
+	/**
+	 * Checks if any investment option is 0
+	 * if so, disables the button
+	 */
+	public void EmptyInvestmentCheck() {
+		if (LowestInvestmentOptionButton.getText().equals("0.00")) {
+			LowestInvestmentOptionButton.setDisable(true);
+		}
+		if (MiddleInvestmentOptionButton.equals("0.00")) {
+			MiddleInvestmentOptionButton.setDisable(true);
+		}
+		if (HighInvestmentOptionButton.equals("0.00")) {
+			HighInvestmentOptionButton.setDisable(true);
+		}
 	}
 }
