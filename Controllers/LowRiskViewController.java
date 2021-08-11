@@ -22,7 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class LowRiskViewController {
-	double balanceLowRisk = 0;
+	static double balanceLowRisk = 0;
 	Accounts LowRisk = new Accounts(balanceLowRisk);
 
 	@FXML
@@ -38,17 +38,18 @@ public class LowRiskViewController {
 	private Button LowRiskDepositButton;
 
 	@FXML
-	private Button LowestInvestmentOptionButton;
+	public Button LowestInvestmentOptionButton;
 
 	@FXML
-	private Button HighInvestmentOptionButton;
+	public Button HighInvestmentOptionButton;
 
 	@FXML
 	private Label InvestmentOptionOutput;
 
 	@FXML
-	private Button MiddleInvestmentOptionButton;
-
+	public Button MiddleInvestmentOptionButton;
+	
+	
 	/**
 	 * Sets balance of TFSA based on
 	 * 
@@ -166,17 +167,33 @@ public class LowRiskViewController {
 
 	/**
 	 * goes back to accounts tabs
+	 * while retaining previous information
 	 */
 	@FXML
 	void GoBackButtonClicked(ActionEvent event) throws FileNotFoundException, IOException {
+		// creates a new loader
 		FXMLLoader loader = new FXMLLoader();
-		// Access AccountView fxml file to set new scene
-		Parent AccountViewParent = (Parent) loader.load(new FileInputStream("src/Views/AccountsView.fxml"));
-		// Sets scene
+		// sets the location of new loader to AccountsView
+		loader.setLocation(getClass().getResource("/Views/AccountsView.fxml"));
+		// loads loader so methods can be accessed
+		Parent AccountViewParent = loader.load();
+
+		// sets scene
 		Scene AccountViewScene = new Scene(AccountViewParent);
-		// This line gets the stage information
+
+		// access AccountsViewController
+		AccountsViewController accounts = loader.getController();
+
+		// sets balance to previous amounts
+		accounts.setBalanceChequing(accounts.getChequingBalance());
+		accounts.setBalanceSavings(accounts.getSavingsBalance());
+
+		// sets username to previous name
+		accounts.setUsername(accounts.getUsername());
+
+		// Gets the Stage information
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		// Sets scene and show upon button press
+		// Sets Scene and shows upon button press
 		window.setScene(AccountViewScene);
 		window.show();
 
