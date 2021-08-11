@@ -4,5 +4,6 @@ module Project {
 	requires javafx.base;
 	requires javafx.graphics;
 	requires javafx.media;
+	requires java.logging;
 	opens Controllers to javafx.graphics, javafx.fxml;
 }
