@@ -17,23 +17,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class AccountsViewController extends UserInfoViewController {
-	double balanceChequing = 0;
-	double balanceSavings = 0;
+public class AccountsViewController {
+	// making them static so they dont change in between scenes
+	static double balanceChequing = 0;
+	static double balanceSavings = 0;
+	
+	
 	Accounts Chequing = new Accounts(balanceChequing);
 	Accounts Savings = new Accounts(balanceSavings);
-	
-	@FXML
-	private Button TrackButtonChequing;
-	
-	@FXML
-    private Button TrackButtonSavings;
-	
-	@FXML
-	private Label SavingsAccountTrackLabel;
-	
-	@FXML
-    private Label ChequingAccountTrackLabel;
 
 	@FXML
 	private TextField WithdrawMoneyInputChequing;
@@ -88,19 +79,63 @@ public class AccountsViewController extends UserInfoViewController {
 	
 	@FXML
 	private Button LowRiskButton;
+	
+	@FXML
+	private Label ErrorOutputLabelChequing;
+	
 
+	/**
+	 * Links with Tester
+	 */
+	public void linkWithApplication(AccountsViewTester accountsViewTester) {
 
-    @FXML
-    void TrackButtonSavingsClicked(ActionEvent event) {
+	}
+	
+	/**
+	 * Method that updates balance label every time a transaction is made
+	 * used for Chequing. Always rounds to 2 decimal places.
+	 */
+	public void setBalanceChequing(double amount) {
+		// Rounds to 2 decimal places
+		ChequingAccountBalanceLabel.setText(String.format("%.2f", amount));
+	}
 
-    }
-    
-    @FXML
-    void TrackButtonChequingClicked(ActionEvent event) {
+	/**
+	 * Method that updates balance label every time a transaction is made used for
+	 * Savings. Always rounds to 2 decimal places
+	 */
+	public void setBalanceSavings(double amount) {
+		// Rounds to 2 decimal places
+		SavingsAccountBalanceLabel1.setText(String.format("%.2f", amount));
+	}
 
-    }
-    
-    
+	/**
+	 * Displays Username to @param name
+	 */
+	public void setUsername(String name) {
+		UsernameLabel.setText(name);
+		UsernameLabel2.setText(name);
+	}
+	
+	/**
+	 * Gets Username and returns string
+	 */
+	public String getUsername() {
+		return UsernameLabel.getText();
+	}
+	/**
+	 * Gets Chequing Balance
+	 */
+	public double getChequingBalance() {
+		return balanceChequing;
+	}
+	
+	/**
+	 * Gets Savings balance
+	 */
+	public double getSavingsBalance() {
+		return balanceSavings;
+	}
 	
 	/**
 	 * Access Accounts Class from Database package and 
@@ -118,6 +153,7 @@ public class AccountsViewController extends UserInfoViewController {
 		// Removes user previous input
 		DepositMoneyInputChequing.clear();
 	}
+	
 	/**
 	 * Access Accounts Class from Database package and 
 	 * Withdraws money from account
@@ -193,48 +229,47 @@ public class AccountsViewController extends UserInfoViewController {
 	}
 
 	/**
-	 * Links with Tester
-	 */
-	public void linkWithApplication(AccountsViewTester accountsViewTester) {
-
-	}
-
-	/**
-	 * Method that updates balance label every time a transaction is made
-	 * used for Chequing. Always rounds to 2 decimal places.
-	 */
-	public void setBalanceChequing(double amount) {
-		// Rounds to 2 decimal places
-		ChequingAccountBalanceLabel.setText(String.format("%.2f", amount));
-	}
-
-	/**
-	 * Method that updates balance label every time a transaction is made used for
-	 * Savings. Always rounds to 2 decimal places
-	 */
-	public void setBalanceSavings(double amount) {
-		// Rounds to 2 decimal places
-		SavingsAccountBalanceLabel1.setText(String.format("%.2f", amount));
-	}
-
-	/**
 	 * Changes Screen to Low Risk page
 	 */
 	@FXML
 	void LowRiskButtonClicked(ActionEvent event) throws FileNotFoundException, IOException{
+		// creates a new loader
 		FXMLLoader loader = new FXMLLoader();
-		// Access AccountView fxml file to set new scene
-		Parent LowRiskViewParent = (Parent) loader.load(new FileInputStream("src/Views/LowRiskView.fxml")); 
+		// sets the location of the new loader to LowRiskView
+		loader.setLocation(getClass().getResource("/Views/LowRiskView.fxml"));
+		// loads loader so methods can be accessed
+		Parent LowRiskViewParent = loader.load();
 		
-		// Sets scene
+		// sets scene
 		Scene LowRiskViewScene = new Scene(LowRiskViewParent);
 		
-		// This line gets the stage information
-		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		// access LowRiskViewController
+		LowRiskViewController lowRisk = loader.getController();
 		
-		// Sets scene and shows upon button press
+		// sets balance to the balance inside lowRisk
+		lowRisk.setBalanceLowRisk(lowRisk.balanceLowRisk);
+		// sets values inside buttons
+		lowRisk.setTextInvestmentOptionButton();
+		
+		// if balance of LowRisk is 0, will keep buttons disabled
+		// and buttons are clear
+		// but if greater, activates
+		if (String.format("%.2f", lowRisk.balanceLowRisk).equals("0.00")) {
+			lowRisk.LowestInvestmentOptionButton.setText("");
+			lowRisk.MiddleInvestmentOptionButton.setText("");
+			lowRisk.HighInvestmentOptionButton.setText("");
+		}
+		else {
+			lowRisk.LowestInvestmentOptionButton.setDisable(false);
+			lowRisk.MiddleInvestmentOptionButton.setDisable(false);
+			lowRisk.HighInvestmentOptionButton.setDisable(false);
+		}
+		
+		// Gets the Stage information
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		// Sets Scene and shows upon button press
 		window.setScene(LowRiskViewScene);
-		window.show();		
+		window.show();	
 	}
 	
 	/**
@@ -242,21 +277,43 @@ public class AccountsViewController extends UserInfoViewController {
 	 */
 	@FXML
 	void HighRiskButtonClicked(ActionEvent event) throws FileNotFoundException, IOException {
+		// creates a new loader
 		FXMLLoader loader = new FXMLLoader();
-		// Access AccountView fxml file to set new scene
-		Parent HighRiskViewParent = (Parent) loader.load(new FileInputStream("src/Views/HighRiskView.fxml"));
+		// sets the location of the new loader to LowRiskView
+		loader.setLocation(getClass().getResource("/Views/HighRiskView.fxml"));
+		// loads loader so methods can be accessed
+		Parent HighRiskViewParent = loader.load();
 
-		// Sets scene
-		Scene HighRiskViewScene = new Scene(HighRiskViewParent);
+		// sets scene
+		Scene LowRiskViewScene = new Scene(HighRiskViewParent);
 
-		// This line gets the stage information
+		// access LowRiskViewController
+		HighRiskViewController highRisk = loader.getController();
+
+		// sets balance to the balance inside lowRisk
+		highRisk.setBalanceHighRisk(highRisk.balanceHighRisk);
+		// sets values inside buttons
+		highRisk.setTextInvestmentOptionButton();
+
+		// if balance of LowRisk is 0, will keep buttons disabled
+		// and buttons are clear
+		// but if greater, activates
+		if (String.format("%.2f", highRisk.balanceHighRisk).equals("0.00")) {
+			highRisk.LowestInvestmentOptionButton.setText("");
+			highRisk.MiddleInvestmentOptionButton.setText("");
+			highRisk.HighInvestmentOptionButton.setText("");
+			
+		} else {
+			highRisk.LowestInvestmentOptionButton.setDisable(false);
+			highRisk.MiddleInvestmentOptionButton.setDisable(false);
+			highRisk.HighInvestmentOptionButton.setDisable(false);
+		}
+
+		// Gets the Stage information
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-		// Sets scene and shows upon button press
-		window.setScene(HighRiskViewScene);
+		// Sets Scene and shows upon button press
+		window.setScene(LowRiskViewScene);
 		window.show();
-		
-		
 	}
 	
 }
