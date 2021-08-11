@@ -199,4 +199,21 @@ public class LowRiskViewController {
 
 	}
 
+	/**
+	 * Checks if any investment option is 0
+	 * if so, disables the button
+	 */
+	public void EmptyInvestmentCheck() {
+		Button[] investmentButtons = {LowestInvestmentOptionButton, MiddleInvestmentOptionButton, HighInvestmentOptionButton};
+		for (int i= 0; i < investmentButtons.length; i++) {
+			if (investmentButtons[i].getText().equals("$0.00") || investmentButtons[i].getText().equals(null) || investmentButtons[i].getText().equals("")) {
+				investmentButtons[i].setDisable(true);
+			}
+			else {
+				investmentButtons[i].setDisable(false);
+			}
+		}
+	
+}
+	
 }
