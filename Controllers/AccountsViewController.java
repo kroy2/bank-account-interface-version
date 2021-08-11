@@ -254,16 +254,7 @@ public class AccountsViewController {
 		// if balance of LowRisk is 0, will keep buttons disabled
 		// and buttons are clear
 		// but if greater, activates
-		if (String.format("%.2f", lowRisk.balanceLowRisk).equals("0.00")) {
-			lowRisk.LowestInvestmentOptionButton.setText("");
-			lowRisk.MiddleInvestmentOptionButton.setText("");
-			lowRisk.HighInvestmentOptionButton.setText("");
-		}
-		else {
-			lowRisk.LowestInvestmentOptionButton.setDisable(false);
-			lowRisk.MiddleInvestmentOptionButton.setDisable(false);
-			lowRisk.HighInvestmentOptionButton.setDisable(false);
-		}
+		lowRisk.EmptyInvestmentCheck();
 		
 		// Gets the Stage information
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -297,17 +288,9 @@ public class AccountsViewController {
 
 		// if balance of LowRisk is 0, will keep buttons disabled
 		// and buttons are clear
-		// but if greater, activates
-		if (String.format("%.2f", highRisk.balanceHighRisk).equals("0.00")) {
-			highRisk.LowestInvestmentOptionButton.setText("");
-			highRisk.MiddleInvestmentOptionButton.setText("");
-			highRisk.HighInvestmentOptionButton.setText("");
-			
-		} else {
-			highRisk.LowestInvestmentOptionButton.setDisable(false);
-			highRisk.MiddleInvestmentOptionButton.setDisable(false);
-			highRisk.HighInvestmentOptionButton.setDisable(false);
-		}
+		// but if greater, activates		
+		highRisk.EmptyInvestmentCheck();
+
 
 		// Gets the Stage information
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
