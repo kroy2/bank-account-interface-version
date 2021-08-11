@@ -1,5 +1,10 @@
 package Controllers;
 
+import Database.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,210 +15,97 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import Database.*;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-
-public class LowRiskViewController {
-	static double balanceLowRisk = 0;
-	Accounts LowRisk = new Accounts(balanceLowRisk);
+import java.util.logging.Level;
+import java.util.logging.Logger;
+public class UserInfoViewController {
 
 	@FXML
-	private Button GoBackButton;
+	public TextField UsernameInput;
 
 	@FXML
-	private TextField LowRiskDepositInput;
+	private Label ActionTextOutput;
 
 	@FXML
-	private Label LowRiskTFSABalance;
+	private Button ResetButton;
 
 	@FXML
-	private Button LowRiskDepositButton;
+	public TextField PasswordInput;
 
 	@FXML
-	public Button LowestInvestmentOptionButton;
+	private Button EnterButton;
 
 	@FXML
-	public Button HighInvestmentOptionButton;
+	void ResetButtonClicked(ActionEvent event) {
+		UsernameInput.clear();
+		PasswordInput.clear();
+		ActionTextOutput.setText("Your information has been Reset, please enter information.");
+	}
 
-	@FXML
-	private Label InvestmentOptionOutput;
-
-	@FXML
-	public Button MiddleInvestmentOptionButton;
-	
-	
 	/**
-	 * Sets balance of TFSA based on
-	 * 
-	 * @param amount while also rounding to 2 decimal places
+	 * Saves user input for username and password, Changes Scene to access accounts
+	 * with different functionalities
+	 * Does some error handling:
+	 * Same Username & Password, did not fill in response
 	 */
-	public void setBalanceLowRisk(double amount) {
-		LowRiskTFSABalance.setText(String.format("%.2f", amount));
+	@FXML
+	void EnterButtonClicked(ActionEvent event) throws IOException {
+		
+		String Username = UsernameInput.getText();
+		// Check whether Username and password are the same
+		// If so, Prompts the user to try again
+		if (UsernameInput.getText().equals(PasswordInput.getText()) && UsernameInput.getLength() > 0
+				&& PasswordInput.getLength() > 0) {
+			ActionTextOutput.setText("Your Username and Password are the same. Please make them different!");
+		}
+
+		// Checks if one of the boxes is empty, if so, prompts the user to fill in
+		// remaining box
+		else if (UsernameInput.getLength() == 0 || PasswordInput.getLength() == 0) {
+			ActionTextOutput.setText("Either your Username or Password are empty. Please fill it out.");
+			// Clears text fields
+			PasswordInput.clear();
+			UsernameInput.clear();
+		} else {
+			// creates a new loader
+			FXMLLoader loader = new FXMLLoader();
+			// sets the location of new loader to AccountsView
+			loader.setLocation(getClass().getResource("/Views/AccountsView.fxml"));
+			// loads loader so methods can be accessed
+			Parent AccountViewParent = loader.load();
+			
+			// sets scene 
+			Scene AccountViewScene = new Scene(AccountViewParent);
+			
+			// access AccountsViewController
+			AccountsViewController accounts = loader.getController();
+			// calls method to set display user name
+			accounts.setUsername(Username);
+			// call method to set Chequing Balance
+			accounts.setBalanceChequing(accounts.getChequingBalance());
+			// call method to set Savings Balance
+			accounts.setBalanceSavings(accounts.getSavingsBalance());
+			
+			// Gets the Stage information
+			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			// Sets Scene and shows upon button press
+			window.setScene(AccountViewScene);
+			window.show();
+		}
 	}
 
 	/**
 	 * links with tester so it can be run independently
 	 */
-	public void LinkWithApplication(LowRiskViewTester lowRiskViewTester) {
-
-	}
-
-	// appropriately changes button's text to represent new balance values
-	// including rounding to 2 decimal places
-	public void setTextInvestmentOptionButton() {
-		LowestInvestmentOptionButton.setText("$" + String.format("%.2f", balanceLowRisk * 0.025));
-		MiddleInvestmentOptionButton.setText("$" + String.format("%.2f", balanceLowRisk * 0.0625));
-		HighInvestmentOptionButton.setText("$" + String.format("%.2f", balanceLowRisk * 0.10));
-	}
-
-	/**
-	 * Deposits inputed amount of money into TFSA
-	 * Removes user input after
-	 * @param event can be activated two ways:
-	 * Clicking deposit
-	 * Pressing Enter on keyboard
-	 * Re-enables investment option buttons
-	 * and adds text to them
-	 */
-	@FXML
-	void LowRiskDepositButtonClicked(ActionEvent event) {
-		// Deposit method invoked from accounts class
-		balanceLowRisk = balanceLowRisk + Double.parseDouble(LowRiskDepositInput.getText());
-		// Prints current balance in Low Risk
-		setBalanceLowRisk(balanceLowRisk);
-		// Removes previous User input
-		LowRiskDepositInput.clear();
-		
-		// Reactivates option buttons after there is money in TFSA
-		LowestInvestmentOptionButton.setDisable(false);
-		MiddleInvestmentOptionButton.setDisable(false);
-		HighInvestmentOptionButton.setDisable(false);
-
-		//Resets Text in other buttons
-		// while accounting for 2 decimal places
-		setTextInvestmentOptionButton();
-	}
-	
-	/**
-	 * Represents an investment of 2.5 percent
-	 * Displays text output
-	 * Changes balance of TFSA
-	 * Changes text of all 3 buttons appropriately
-	 * based on current balance
-	 */
-	@FXML
-	void LowInvestmentButtonClicked(ActionEvent event) {
-		// Displays amount used to invest
-		InvestmentOptionOutput.setText("You have invested 2.5 percent of your TFSA balance.");
-		// Changes the balance displayed on screen
-		setBalanceLowRisk(balanceLowRisk - balanceLowRisk * 0.025);
-		// Actually changes the balance
-		balanceLowRisk = balanceLowRisk - balanceLowRisk * 0.025;
-
-		// Resets text in other buttons
-		// while accounting for 2 decimal places
-		setTextInvestmentOptionButton();
-	}
-
-	/**
-	 * Represents an investment of 6.25 percent
-	 * Displays text output
-	 * Changes balance of TFSA
-	 * Changes text of all 3 buttons appropriately
-	 * based on current balance
-	 */
-	@FXML
-	void MiddleInvestmentButtonClicked(ActionEvent event) {
-		// Displays amount used to invest
-		InvestmentOptionOutput.setText("You have invested 6.25 percent of your TFSA balance");
-		// Changes the balance displayed on screen
-		setBalanceLowRisk(balanceLowRisk - balanceLowRisk * 0.0625);
-		// Actually changes the balance
-		balanceLowRisk = balanceLowRisk - balanceLowRisk * 0.0625;
-
-		// Resets text in other buttons
-		// while accounting for 2 decimal places
-		setTextInvestmentOptionButton();
-	}
-
-	/**
-	 * Represents an investment of 10 percent
-	 * Displays text output
-	 * Changes balance of TFSA
-	 * Changes text of all 3 buttons appropriately
-	 * based on current balance
-	 */
-	@FXML
-	void HighInvestmentButtonClicked(ActionEvent event) {
-		// Displays amount used to invest
-		InvestmentOptionOutput.setText("You have invested 10 percent of your TFSA balance");
-		// Changes the balance displayed on screen
-		setBalanceLowRisk(balanceLowRisk - balanceLowRisk * 0.10);
-		// Actually changes the balance
-		balanceLowRisk = balanceLowRisk - balanceLowRisk * 0.10;
-
-		// Resets text in other buttons
-		// while accounting for 2 decimal places
-		setTextInvestmentOptionButton();
-	}
-
-	/**
-	 * goes back to accounts tabs
-	 * while retaining previous information
-	 */
-	@FXML
-	void GoBackButtonClicked(ActionEvent event) throws FileNotFoundException, IOException {
-		// creates a new loader
-		FXMLLoader loader = new FXMLLoader();
-		// sets the location of new loader to AccountsView
-		loader.setLocation(getClass().getResource("/Views/AccountsView.fxml"));
-		// loads loader so methods can be accessed
-		Parent AccountViewParent = loader.load();
-
-		// sets scene
-		Scene AccountViewScene = new Scene(AccountViewParent);
-
-		// access AccountsViewController
-		AccountsViewController accounts = loader.getController();
-
-		// sets balance to previous amounts
-		accounts.setBalanceChequing(accounts.getChequingBalance());
-		accounts.setBalanceSavings(accounts.getSavingsBalance());
-
-		// sets username to previous name
-		accounts.setUsername(accounts.getUsername());
-
-		// Gets the Stage information
-		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		// Sets Scene and shows upon button press
-		window.setScene(AccountViewScene);
-		window.show();
+	public void linkWithApplication(UserInfoViewTester userInfoViewTester) {
 
 	}
 
 	/**
-	 * Checks if any investment option is 0
-	 * if so, disables the button
+	 * Links with main application named BankingApplication
 	 */
-	public void EmptyInvestmentCheck() {
-		Button[] investmentButtons = {LowestInvestmentOptionButton, MiddleInvestmentOptionButton, HighInvestmentOptionButton};
-		for (int i= 0; i < investmentButtons.length; i++) {
-			if (investmentButtons[i].getText().equals("$0.00") || investmentButtons[i].getText().equals(null) || investmentButtons[i].getText().equals("")) {
-				investmentButtons[i].setDisable(true);
-			}
-			else {
-				investmentButtons[i].setDisable(false);
-			}
-		}
-	
-}
+	public void linkWithApplication(BankingApplication bankingApplication) {
+
+	}
+
 	
 }
