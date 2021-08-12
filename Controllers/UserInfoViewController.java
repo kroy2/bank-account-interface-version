@@ -17,7 +17,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 public class UserInfoViewController {
+	// public so it can be accessed outside this class
+	// static so it does not change in between scene changes
+	public static String Username;
 
 	@FXML
 	public TextField UsernameInput;
@@ -34,6 +38,9 @@ public class UserInfoViewController {
 	@FXML
 	private Button EnterButton;
 
+	/**
+	 * Clears Username and password input and displays message
+	 */
 	@FXML
 	void ResetButtonClicked(ActionEvent event) {
 		UsernameInput.clear();
@@ -43,14 +50,13 @@ public class UserInfoViewController {
 
 	/**
 	 * Saves user input for username and password, Changes Scene to access accounts
-	 * with different functionalities
-	 * Does some error handling:
-	 * Same Username & Password, did not fill in response
+	 * with different functionalities, Does some error handling: Same Username &
+	 * Password, did not fill in response
 	 */
 	@FXML
 	void EnterButtonClicked(ActionEvent event) throws IOException {
-		
-		String Username = UsernameInput.getText();
+
+		Username = UsernameInput.getText();
 		// Check whether Username and password are the same
 		// If so, Prompts the user to try again
 		if (UsernameInput.getText().equals(PasswordInput.getText()) && UsernameInput.getLength() > 0
@@ -72,10 +78,10 @@ public class UserInfoViewController {
 			loader.setLocation(getClass().getResource("/Views/AccountsView.fxml"));
 			// loads loader so methods can be accessed
 			Parent AccountViewParent = loader.load();
-			
-			// sets scene 
+
+			// sets scene
 			Scene AccountViewScene = new Scene(AccountViewParent);
-			
+
 			// access AccountsViewController
 			AccountsViewController accounts = loader.getController();
 			// calls method to set display user name
@@ -84,7 +90,7 @@ public class UserInfoViewController {
 			accounts.setBalanceChequing(accounts.getChequingBalance());
 			// call method to set Savings Balance
 			accounts.setBalanceSavings(accounts.getSavingsBalance());
-			
+
 			// Gets the Stage information
 			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			// Sets Scene and shows upon button press
@@ -107,5 +113,4 @@ public class UserInfoViewController {
 
 	}
 
-	
 }
