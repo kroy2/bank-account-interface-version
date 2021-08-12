@@ -98,6 +98,11 @@
                   </Pane>
                </children>
             </HBox>
+            <Label fx:id="LowRiskOutputLabel" layoutX="14.0" layoutY="558.0" prefHeight="23.0" prefWidth="594.0" text="     ">
+               <font>
+                  <Font name="Times New Roman" size="20.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>
