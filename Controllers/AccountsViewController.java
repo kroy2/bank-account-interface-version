@@ -85,6 +85,9 @@ public class AccountsViewController {
 
 	@FXML
 	public Label ChequingOutput;
+	
+	@FXML
+	private Button Bills;
 
 	/**
 	 * Links with Tester
@@ -141,6 +144,25 @@ public class AccountsViewController {
 		return balanceSavings;
 	}
 
+	/**
+	 * Goes to Bill view
+	 */
+	@FXML
+	void BillsButtonClicked(ActionEvent event) throws FileNotFoundException, IOException {
+		FXMLLoader loader = new FXMLLoader();
+		// Access UserInfoView fxml file to set new scene
+		Parent BillViewParent = (Parent) loader.load(new FileInputStream("src/Views/BillView.fxml"));
+
+		// Sets scene
+		Scene BillViewScene = new Scene(BillViewParent);
+
+		// This line gets the stage information
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+		// Sets scene and shows upon button press
+		window.setScene(BillViewScene);
+		window.show();
+	}
 	/**
 	 * Access Accounts Class from Database package and Deposits money into account
 	 * Two ways to call: First: Press Button Second: User presses enter
