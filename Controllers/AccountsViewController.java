@@ -21,8 +21,8 @@ public class AccountsViewController {
 	// making them static so they dont change in between scenes
 	static double balanceChequing = 0;
 	static double balanceSavings = 0;
-	
-	
+	static String Username;
+
 	Accounts Chequing = new Accounts(balanceChequing);
 	Accounts Savings = new Accounts(balanceSavings);
 
@@ -31,7 +31,7 @@ public class AccountsViewController {
 
 	@FXML
 	public Label UsernameLabel2;
-	
+
 	@FXML
 	private Label SavingsAccountBalanceLabel1;
 
@@ -43,10 +43,10 @@ public class AccountsViewController {
 
 	@FXML
 	public Label UsernameLabel;
-	
+
 	@FXML
 	public Label SavingsOutput;
-	
+
 	@FXML
 	private Label ChequingAccountBalanceLabel;
 
@@ -73,16 +73,18 @@ public class AccountsViewController {
 
 	@FXML
 	private TextField DepositMoneyInputChequing;
-	
+
 	@FXML
 	private Button HighRiskButton;
-	
+
 	@FXML
 	private Button LowRiskButton;
-	
+
 	@FXML
 	private Label ErrorOutputLabelChequing;
-	
+
+	@FXML
+	public Label ChequingOutput;
 
 	/**
 	 * Links with Tester
@@ -90,10 +92,10 @@ public class AccountsViewController {
 	public void linkWithApplication(AccountsViewTester accountsViewTester) {
 
 	}
-	
+
 	/**
-	 * Method that updates balance label every time a transaction is made
-	 * used for Chequing. Always rounds to 2 decimal places.
+	 * Method that updates balance label every time a transaction is made used for
+	 * Chequing. Always rounds to 2 decimal places.
 	 */
 	public void setBalanceChequing(double amount) {
 		// Rounds to 2 decimal places
@@ -116,59 +118,75 @@ public class AccountsViewController {
 		UsernameLabel.setText(name);
 		UsernameLabel2.setText(name);
 	}
-	
+
 	/**
 	 * Gets Username and returns string
 	 */
 	public String getUsername() {
-		return UsernameLabel.getText();
+		Username = UsernameLabel.getText();
+		return Username;
 	}
+
 	/**
 	 * Gets Chequing Balance
 	 */
 	public double getChequingBalance() {
 		return balanceChequing;
 	}
-	
+
 	/**
 	 * Gets Savings balance
 	 */
 	public double getSavingsBalance() {
 		return balanceSavings;
 	}
-	
+
 	/**
-	 * Access Accounts Class from Database package and 
-	 * Deposits money into account
-	 * Two ways to call:
-	 * First: Press Button
-	 * Second: User presses enter 
+	 * Access Accounts Class from Database package and Deposits money into account
+	 * Two ways to call: First: Press Button Second: User presses enter
 	 */
 	@FXML
 	void DepositButtonClickedChequing(ActionEvent event) {
-		// Deposit method invoked from Accounts class
-		balanceChequing = balanceChequing + Double.parseDouble(DepositMoneyInputChequing.getText());
-		// Prints current balance in chequing
-		setBalanceChequing(balanceChequing);
-		// Removes user previous input
-		DepositMoneyInputChequing.clear();
+		// Checks if input is negative
+		// if so, gives error message
+		if (Double.parseDouble(DepositMoneyInputChequing.getText()) < 0) {
+			ChequingOutput.setText("You cannot input a negative number! Please try again.");
+			DepositMoneyInputChequing.clear();
+		} else {
+			// Deposit method invoked from Accounts class
+			balanceChequing = balanceChequing + Double.parseDouble(DepositMoneyInputChequing.getText());
+			// Prints current balance in chequing
+			setBalanceChequing(balanceChequing);
+			// Removes user previous input
+			DepositMoneyInputChequing.clear();
+		}
 	}
-	
+
 	/**
-	 * Access Accounts Class from Database package and 
-	 * Withdraws money from account
-	 * Two ways to call:
-	 * First: Press Button
-	 * Second: User presses enter 
+	 * Access Accounts Class from Database package and Withdraws money from account
+	 * Two ways to call: First: Press Button Second: User presses enter
 	 */
 	@FXML
 	void WithdrawButtonClickedChequing(ActionEvent event) {
-		// Withdraw method invoked from Accounts Class
-		balanceChequing = balanceChequing - Double.parseDouble(WithdrawMoneyInputChequing.getText());
-		// Prints current balance in chequing
-		setBalanceChequing(balanceChequing);
-		// removes user previous input
-		WithdrawMoneyInputChequing.clear();
+		// Checks if input is negative
+		// if so, gives error message
+		if (Double.parseDouble(WithdrawMoneyInputChequing.getText()) < 0) {
+			ChequingOutput.setText("You cannot input a negative number! Please try again.");
+			WithdrawMoneyInputChequing.clear();
+		} else {
+			// Checks if you can withdraw more money than you have
+			if (balanceChequing - Double.parseDouble(WithdrawMoneyInputChequing.getText()) < 0) {
+				ChequingOutput.setText("You are taking out more money than you have! Please try again.");
+				WithdrawMoneyInputChequing.clear();
+			} else {
+				// Withdraw method invoked from Accounts Class
+				balanceChequing = balanceChequing - Double.parseDouble(WithdrawMoneyInputChequing.getText());
+				// Prints current balance in chequing
+				setBalanceChequing(balanceChequing);
+				// removes user previous input
+				WithdrawMoneyInputChequing.clear();
+			}
+		}
 	}
 
 	/**
@@ -190,79 +208,93 @@ public class AccountsViewController {
 		window.setScene(UserInfoViewScene);
 		window.show();
 	}
-	
+
 	/**
-	 * Access Accounts Class from Database package and 
-	 * Deposits money into account
-	 * Two ways to call:
-	 * First: Press Button
-	 * Second: User presses enter 
+	 * Access Accounts Class from Database package and Deposits money into account
+	 * Two ways to call: First: Press Button Second: User presses enter
 	 */
 	@FXML
 	void DepositButtonClickedSavings(ActionEvent event) {
-		// Deposit method invoked from Accounts class
-		balanceSavings = balanceSavings + Double.parseDouble(DepositMoneyInputSavings.getText());
-		// Prints current balance in savings
-		setBalanceSavings(balanceSavings);
-		// Removes user previous input
-		DepositMoneyInputSavings.clear();
+		// Checks if input is negative
+		// if so, gives error message
+		if (Double.parseDouble(DepositMoneyInputSavings.getText()) < 0) {
+			SavingsOutput.setText("You cannot input a negative number! Please try again.");
+			DepositMoneyInputSavings.clear();
+		} else {
+			// Deposit method invoked from Accounts class
+			balanceSavings = balanceSavings + Double.parseDouble(DepositMoneyInputSavings.getText());
+			// Prints current balance in savings
+			setBalanceSavings(balanceSavings);
+			// Removes user previous input
+			DepositMoneyInputSavings.clear();
+		}
 	}
-	
+
 	/**
-	 * Access Accounts Class from Database package and 
-	 * Withdraws money from account
-	 * Two ways to call:
-	 * First: Press Button
-	 * Second: User presses enter 
+	 * Access Accounts Class from Database package and Withdraws money from account
+	 * Two ways to call: First: Press Button Second: User presses enter
 	 */
 	@FXML
 	void WithdrawButtonClickedSavings(ActionEvent event) {
-		// Withdraw method invoked from Accounts class
-		// Every time withdraw is called, add 5% interest, then withdraw
-		balanceSavings = balanceSavings*1.05 - Double.parseDouble(WithdrawMoneyInputSavings.getText());
-		// Prints current balance in savings
-		setBalanceSavings(balanceSavings);
-		// Removes user previous input
-		WithdrawMoneyInputSavings.clear();
-		// Displays that Interest was applied
-		SavingsOutput.setText("5% interest was applied to the balance before withdrawing.");
+		// Checks if input is negative
+		// if so, gives error message
+		if (Double.parseDouble(WithdrawMoneyInputSavings.getText()) < 0) {
+			SavingsOutput.setText("You cannot input a negative number! Please try again.");
+			WithdrawMoneyInputSavings.clear();
+		} else {
+			// Checks if withdrawing more money than possible
+			if (balanceSavings * 1.05 - Double.parseDouble(WithdrawMoneyInputSavings.getText()) < 0) {
+				SavingsOutput.setText("You are taking out more money than you have! Please try again.");
+				WithdrawMoneyInputSavings.clear();
+			} else {
+				// Withdraw method invoked from Accounts class
+				// Every time withdraw is called, add 5% interest, then withdraw
+				balanceSavings = balanceSavings * 1.05 - Double.parseDouble(WithdrawMoneyInputSavings.getText());
+				// Prints current balance in savings
+				setBalanceSavings(balanceSavings);
+				// Removes user previous input
+				WithdrawMoneyInputSavings.clear();
+				// Displays that Interest was applied
+				SavingsOutput.setText("5% interest was applied to the balance before withdrawing.");
+			}
+		}
 	}
 
 	/**
 	 * Changes Screen to Low Risk page
 	 */
 	@FXML
-	void LowRiskButtonClicked(ActionEvent event) throws FileNotFoundException, IOException{
+	void LowRiskButtonClicked(ActionEvent event) throws FileNotFoundException, IOException {
 		// creates a new loader
 		FXMLLoader loader = new FXMLLoader();
 		// sets the location of the new loader to LowRiskView
 		loader.setLocation(getClass().getResource("/Views/LowRiskView.fxml"));
 		// loads loader so methods can be accessed
 		Parent LowRiskViewParent = loader.load();
-		
+
 		// sets scene
 		Scene LowRiskViewScene = new Scene(LowRiskViewParent);
-		
+
 		// access LowRiskViewController
 		LowRiskViewController lowRisk = loader.getController();
-		
+
 		// sets balance to the balance inside lowRisk
 		lowRisk.setBalanceLowRisk(lowRisk.balanceLowRisk);
 		// sets values inside buttons
 		lowRisk.setTextInvestmentOptionButton();
-		
+
 		// if balance of LowRisk is 0, will keep buttons disabled
 		// and buttons are clear
 		// but if greater, activates
 		lowRisk.EmptyInvestmentCheck();
-		
+
 		// Gets the Stage information
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		// Sets Scene and shows upon button press
 		window.setScene(LowRiskViewScene);
-		window.show();	
+		window.show();
 	}
-	
+
 	/**
 	 * Changes Screen to High Risk page
 	 */
@@ -288,9 +320,8 @@ public class AccountsViewController {
 
 		// if balance of LowRisk is 0, will keep buttons disabled
 		// and buttons are clear
-		// but if greater, activates		
+		// but if greater, activates
 		highRisk.EmptyInvestmentCheck();
-
 
 		// Gets the Stage information
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -298,5 +329,5 @@ public class AccountsViewController {
 		window.setScene(LowRiskViewScene);
 		window.show();
 	}
-	
+
 }
