@@ -67,6 +67,11 @@
                               </Label>
                            </children>
                         </HBox>
+                        <Label fx:id="ChequingOutput" layoutX="14.0" layoutY="511.0" prefHeight="23.0" prefWidth="620.0" text=" ">
+                           <font>
+                              <Font name="Times New Roman" size="20.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
             </content>
@@ -114,7 +119,7 @@
                               <Font name="Times New Roman" size="21.0" />
                            </font>
                         </Button>
-                        <Label fx:id="SavingsOutput" layoutX="14.0" layoutY="527.0" prefHeight="23.0" prefWidth="628.0">
+                        <Label fx:id="SavingsOutput" layoutX="14.0" layoutY="527.0" prefHeight="23.0" prefWidth="644.0">
                            <font>
                               <Font name="Times New Roman Italic" size="20.0" />
                            </font>
