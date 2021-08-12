@@ -22,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class LowRiskViewController {
+	// static so it doesnt change between scene changes
 	static double balanceLowRisk = 0;
 	Accounts LowRisk = new Accounts(balanceLowRisk);
 
@@ -48,8 +49,7 @@ public class LowRiskViewController {
 
 	@FXML
 	public Button MiddleInvestmentOptionButton;
-	
-	
+
 	/**
 	 * Sets balance of TFSA based on
 	 * 
@@ -66,8 +66,10 @@ public class LowRiskViewController {
 
 	}
 
-	// appropriately changes button's text to represent new balance values
-	// including rounding to 2 decimal places
+	/**
+	 * Appropriately changes buttons text to represent new balance values
+	 * including rounding to 2 decimal places
+	 **/
 	public void setTextInvestmentOptionButton() {
 		LowestInvestmentOptionButton.setText("$" + String.format("%.2f", balanceLowRisk * 0.025));
 		MiddleInvestmentOptionButton.setText("$" + String.format("%.2f", balanceLowRisk * 0.0625));
@@ -75,39 +77,44 @@ public class LowRiskViewController {
 	}
 
 	/**
-	 * Deposits inputed amount of money into TFSA
-	 * Removes user input after
-	 * @param event can be activated two ways:
-	 * Clicking deposit
-	 * Pressing Enter on keyboard
-	 * Re-enables investment option buttons
-	 * and adds text to them
+	 * Deposits inputed amount of money into TFSA Removes user input after
+	 * 
+	 * @param event can be activated two ways: Clicking deposit Pressing Enter on
+	 *              keyboard Re-enables investment option buttons and adds text to
+	 *              them
 	 */
 	@FXML
 	void LowRiskDepositButtonClicked(ActionEvent event) {
-		// Deposit method invoked from accounts class
-		balanceLowRisk = balanceLowRisk + Double.parseDouble(LowRiskDepositInput.getText());
-		// Prints current balance in Low Risk
-		setBalanceLowRisk(balanceLowRisk);
-		// Removes previous User input
-		LowRiskDepositInput.clear();
-		
-		// Reactivates option buttons after there is money in TFSA
-		LowestInvestmentOptionButton.setDisable(false);
-		MiddleInvestmentOptionButton.setDisable(false);
-		HighInvestmentOptionButton.setDisable(false);
+		// Checks if input is negative
+		// if so, displays error message and clears
+		// previous input
+		if (Double.parseDouble(LowRiskDepositInput.getText()) < 0) {
+			InvestmentOptionOutput.setText("Cannot deposit negative number! Please try again.");
+			LowRiskDepositInput.clear();
+		} else {
+			// Deposit method invoked from accounts class
+			balanceLowRisk = balanceLowRisk + Double.parseDouble(LowRiskDepositInput.getText());
+			// Prints current balance in Low Risk
+			setBalanceLowRisk(balanceLowRisk);
+			// Removes previous User input
+			LowRiskDepositInput.clear();
 
-		//Resets Text in other buttons
-		// while accounting for 2 decimal places
-		setTextInvestmentOptionButton();
+			// Reactivates option buttons after there is money in TFSA
+			LowestInvestmentOptionButton.setDisable(false);
+			MiddleInvestmentOptionButton.setDisable(false);
+			HighInvestmentOptionButton.setDisable(false);
+
+			// Resets Text in other buttons
+			// while accounting for 2 decimal places
+			setTextInvestmentOptionButton();
+		}
 	}
-	
+
 	/**
-	 * Represents an investment of 2.5 percent
-	 * Displays text output
-	 * Changes balance of TFSA
-	 * Changes text of all 3 buttons appropriately
-	 * based on current balance
+	 * Represents an investment of 2.5 percent 
+	 * Displays text output 
+	 * Changes balance of TFSA Changes text of all 3 buttons 
+	 * appropriately based on current balance
 	 */
 	@FXML
 	void LowInvestmentButtonClicked(ActionEvent event) {
@@ -121,14 +128,17 @@ public class LowRiskViewController {
 		// Resets text in other buttons
 		// while accounting for 2 decimal places
 		setTextInvestmentOptionButton();
+
+		// Checks if any button invests 0.00
+		// if so, disables that button
+		EmptyInvestmentCheck();
 	}
 
 	/**
-	 * Represents an investment of 6.25 percent
-	 * Displays text output
-	 * Changes balance of TFSA
-	 * Changes text of all 3 buttons appropriately
-	 * based on current balance
+	 * Represents an investment of 6.25 percent 
+	 * Displays text output 
+	 * Changes balance of TFSA Changes text of all 3 buttons
+	 * appropriately based on current balance
 	 */
 	@FXML
 	void MiddleInvestmentButtonClicked(ActionEvent event) {
@@ -142,14 +152,17 @@ public class LowRiskViewController {
 		// Resets text in other buttons
 		// while accounting for 2 decimal places
 		setTextInvestmentOptionButton();
+
+		// Checks if any button invests 0.00
+		// if so, disables that button
+		EmptyInvestmentCheck();
 	}
 
 	/**
-	 * Represents an investment of 10 percent
-	 * Displays text output
-	 * Changes balance of TFSA
-	 * Changes text of all 3 buttons appropriately
-	 * based on current balance
+	 * Represents an investment of 10 percent 
+	 * Displays text output 
+	 * Changes balance of TFSA Changes text of all 3 buttons
+	 * appropriately based on current balance
 	 */
 	@FXML
 	void HighInvestmentButtonClicked(ActionEvent event) {
@@ -163,11 +176,14 @@ public class LowRiskViewController {
 		// Resets text in other buttons
 		// while accounting for 2 decimal places
 		setTextInvestmentOptionButton();
+
+		// Checks if any button invests 0.00
+		// if so, disables that button
+		EmptyInvestmentCheck();
 	}
 
 	/**
-	 * goes back to accounts tabs
-	 * while retaining previous information
+	 * goes back to accounts tabs while retaining previous information
 	 */
 	@FXML
 	void GoBackButtonClicked(ActionEvent event) throws FileNotFoundException, IOException {
@@ -200,20 +216,26 @@ public class LowRiskViewController {
 	}
 
 	/**
-	 * Checks if any investment option is 0
-	 * if so, disables the button
+	 * Checks if any investment option is 0 if so, disables the button
 	 */
 	public void EmptyInvestmentCheck() {
-		Button[] investmentButtons = {LowestInvestmentOptionButton, MiddleInvestmentOptionButton, HighInvestmentOptionButton};
-		for (int i= 0; i < investmentButtons.length; i++) {
-			if (investmentButtons[i].getText().equals("$0.00") || investmentButtons[i].getText().equals(null) || investmentButtons[i].getText().equals("")) {
+		// Creates an array of object buttons
+		// so they can be iterated through quickly
+		Button[] investmentButtons = { LowestInvestmentOptionButton, MiddleInvestmentOptionButton,
+				HighInvestmentOptionButton };
+		// Iterates through Button list
+		for (int i = 0; i < investmentButtons.length; i++) {
+			// Checks if Buttons are 0
+			// if so, clears them and disables them
+			if (investmentButtons[i].getText().equals("$0.00") || investmentButtons[i].getText().equals(null)
+					|| investmentButtons[i].getText().equals("")) {
 				investmentButtons[i].setDisable(true);
-			}
-			else {
+				investmentButtons[i].setText("");
+			} else {
 				investmentButtons[i].setDisable(false);
 			}
 		}
-	
-}
-	
+
+	}
+
 }
